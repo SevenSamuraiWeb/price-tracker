@@ -1,3 +1,5 @@
+import os
+
 import requests
 from bs4 import BeautifulSoup
 import smtplib
@@ -5,27 +7,28 @@ import smtplib
 
 def fetch_price(url,headers):
     response = requests.get(url,headers=headers)
-    soup = BeautifulSoup(response.content, 'html.parser')
 
-    # fetches the title using class identifier
-    p_title = soup.find(
-        attrs={"class":"VU-ZEz"}
-    ).get_text(strip=True)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        # fetches the title using class identifier
+        p_title_element = soup.find(attrs={"class": "VU-ZEz"})
+        p_title = p_title_element.get_text(strip=True) if p_title_element else "Title not found"
 
-    # fetches the price using class identifier
-    p_price=soup.find(
-        attrs={"class":"Nx9bqj CxhGGd"}
-    ).get_text(strip=True)
+        # fetches the price using class identifier
+        p_price_element = soup.find(attrs={"class": "Nx9bqj CxhGGd"})
+        p_price = p_price_element.get_text(strip=True) if p_price_element else "Price not found"
 
-    p_price=p_price.replace(",","")
-    p_price=p_price.replace("₹","")
-    final_price=float(p_price)
-    return p_title,final_price
+        p_price=p_price.replace(",","")
+        p_price=p_price.replace("₹","")
+        final_price=float(p_price)
+        return p_title,final_price
+    else:
+        raise Exception(f"Failed to retrieve page, status code {response.status_code}")
 
 
 def send_mail(url,product_name,user_email):
-    src_email = "nihaalvirgincar193@gmail.com"
-    passwd = 'wgkvgmwipciasfwc'
+    src_email = os.getenv('GMAIL_ACC')
+    passwd = os.getenv('GMAIL_PASSWORD')
 
     #starts a server connection
     server = smtplib.SMTP('smtp.gmail.com',587)
