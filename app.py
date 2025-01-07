@@ -1,8 +1,9 @@
-from typing import Iterable
-
+import sys
 import streamlit as st
 from main import fetch_price
 from main import send_mail
+
+sys.path.append("C:\\Users\\nihaa\PycharmProjects\PythonProject")
 
 st.header("Flipkart price tracker")
 url = st.text_input("Enter the product url")
