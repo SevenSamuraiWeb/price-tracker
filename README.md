@@ -1,6 +1,6 @@
-# Amazon Price Tracker 🌐✨
+# Flipkart Price Tracker 🌐✨
 
-This project is a Python-based **Amazon Price Tracker** that monitors the price of an item on Amazon and sends an email alert when the price drops below a user-defined target price. The project is implemented with the following technologies: 🔧✨⭐
+This project is a Python-based **Flipkart Price Tracker** that monitors the price of an item on Flipkart and sends an email alert when the price drops below a user-defined target price. The project is implemented with the following technologies: 🔧✨⭐
 
 - **Python** for backend logic
 - **Streamlit** for the user interface
@@ -11,7 +11,7 @@ This project is a Python-based **Amazon Price Tracker** that monitors the price 
 
 ## Features 🌟🔔⭐
 
-- Fetch and monitor prices of Amazon products
+- Fetch and monitor prices of Flipkart products
 - Set a target price for alerts
 - Receive email notifications when the target price is reached
 - User-friendly web interface built with Streamlit
@@ -83,12 +83,10 @@ Access the app in your browser at: [http://localhost:8501](http://localhost:8501
 
 ```
 price-tracker/
+├── main.py                # logic for fetching prices and sending email alerts
 ├── app.py                 # Streamlit app file
 ├── requirements.txt       # List of Python dependencies
-├── secrets.toml           # (Optional) Email credentials for local testing
-├── utils/                 # Utility functions (e.g., scraping, email sending)
-    ├── scraper.py         # Logic for fetching Amazon prices
-    ├── emailer.py         # Logic for sending email notifications
+
 ```
 
 ---
@@ -97,7 +95,7 @@ price-tracker/
 
 1. **Price Monitoring**: 🌐✨
 
-   - Users provide the Amazon product URL and their target price.
+   - Users provide the Flipkart product URL and their target price.
    - The app uses `requests` and `BeautifulSoup` to fetch and parse the product page.
 
 2. **Email Notifications**: 📧⭐
@@ -112,7 +110,7 @@ price-tracker/
 
 ## Example Workflow 🔧🌐🔔
 
-1. Enter the Amazon product URL and target price in the Streamlit app.
+1. Enter the Flipkart product URL and target price in the Streamlit app.
 2. The app fetches the current price and displays it.
 3. If the price is below the target, you will receive an email alert.
 
@@ -120,7 +118,7 @@ price-tracker/
 
 ## Limitations 🌐🔧⭐
 
-- Amazon may block scraping attempts, especially if CAPTCHAs are encountered frequently.
+- Flipkart may block scraping attempts, especially if huge number of requests are sent.
 - Requires a Gmail account for email alerts.
 - Only monitors prices for a single product at a time.
 
