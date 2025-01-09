@@ -2,7 +2,7 @@ import sys
 import streamlit as st
 from main import fetch_price
 from main import send_mail
-import random
+from fake_useragent import UserAgent
 
 sys.path.append("C:\\Users\\nihaa\PycharmProjects\PythonProject")
 
@@ -12,10 +12,10 @@ email = st.text_input("Enter ur email")
 target_price = st.number_input("Enter target price",min_value=0.0,step=1.0)
 st.text("You will be notified via email if price falls below this price")
 
+ua=UserAgent()
 headers = {
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    "User-Agent":ua.random()
 }
-
 
 if st.button("Track price:"):
     if email and target_price and url:
