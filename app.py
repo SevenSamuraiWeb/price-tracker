@@ -12,7 +12,7 @@ email = st.text_input("Enter ur email")
 target_price = st.number_input("Enter target price",min_value=0.0,step=1.0)
 st.text("You will be notified via email if price falls below this price")
 
-ua=UserAgent(browsers=['Chrome','Edge','Firefox','Safari','Opera'])
+ua=UserAgent()
 headers = {
     "User-Agent":ua.random
 }
