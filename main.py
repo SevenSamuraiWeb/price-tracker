@@ -1,8 +1,8 @@
-import os
 
 import requests
 from bs4 import BeautifulSoup
 import smtplib
+import toml
 
 
 def fetch_price(url,headers):
@@ -26,26 +26,26 @@ def fetch_price(url,headers):
         raise Exception(f"Failed to retrieve page, status code {response.status_code}")
 
 
-def send_mail(url,product_name,user_email):
-    src_email = os.getenv('GMAIL_ACC')
-    passwd = os.getenv('GMAIL_PASSWORD')
 
-    #starts a server connection
-    server = smtplib.SMTP('smtp.gmail.com',587)
+def send_mail(url, product_name, user_email):
+    secrets = toml.load("secrets.toml")
+    src_email = secrets["email"]
+    passwd = secrets["password"]
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login(user=src_email,password=passwd)
+    server.login(user=src_email, password=passwd)
 
     subject = "Hey! The price just dropped"
-    body = f"Product:{product_name}\n\nFlipkart link:{url}"
-    message = f"Subject:{subject}\n\n{body}"
+    body = f"Product: {product_name}\n\nFlipkart link: {url}"
+    message = f"Subject: {subject}\n\n{body}"
     server.sendmail(
         from_addr=src_email,
         to_addrs=user_email,
         msg=message
     )
-
     server.quit()
 
 
